@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --brown:#5C3D1E;--brown2:#7A5230;--cream:#FDF6EC;--cream2:#F5ECD8;
+  --cream3:#EAD9BE;--orange:#D4622A;--orange2:#E8845A;
+  --text:#2C1810;--text2:#6B4C35;--text3:#9B7A62;
+  --white:#FFFFFF;--border:rgba(92,61,30,0.15);
+}
+body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+nav{background:var(--brown);padding:0 2.5rem;height:65px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:998;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{width:38px;height:38px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--white);}
+.logo-name{font-size:16px;font-weight:700;color:var(--white);}
+.logo-sub{font-size:10px;color:rgba(255,255,255,0.6);letter-spacing:1px;}
+.nav-right{display:flex;align-items:center;gap:1rem;}
+.nav-links{display:flex;gap:1.5rem;list-style:none;}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;transition:color 0.2s}
+.nav-links a:hover{color:var(--orange2)}
+.cart-btn{background:var(--orange);color:var(--white);border:none;padding:8px 18px;border-radius:6px;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background 0.2s;}
+.cart-btn:hover{background:var(--orange2)}
+.cart-count{background:var(--white);color:var(--orange);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+
+.hero{background:var(--brown);padding:4rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+.hero-text{max-width:520px;}
+.hero-badge{display:inline-block;background:rgba(212,98,42,0.25);color:var(--orange2);padding:4px 14px;border-radius:20px;font-size:12px;letter-spacing:2px;margin-bottom:1.2rem;}
+.hero h1{font-size:clamp(1.8rem,3.5vw,3rem);color:var(--white);font-weight:900;line-height:1.2;margin-bottom:1rem;}
+.hero h1 span{color:var(--orange2);}
+.hero p{color:rgba(255,255,255,0.65);font-size:15px;line-height:1.8;margin-bottom:2rem;font-weight:300;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-orange{background:var(--orange);color:var(--white);padding:12px 28px;border:none;border-radius:6px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;}
+.btn-orange:hover{background:var(--orange2);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--white);padding:12px 28px;border:1.5px solid rgba(255,255,255,0.3);border-radius:6px;font-family:'Tajawal',sans-serif;font-size:14px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;}
+.btn-outline:hover{border-color:var(--orange2);color:var(--orange2)}
+.hero-stats{display:flex;gap:2rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1);}
+.hstat{display:flex;flex-direction:column;gap:2px;}
+.hstat-n{font-size:1.6rem;font-weight:900;color:var(--orange2);}
+.hstat-l{font-size:12px;color:rgba(255,255,255,0.5);}
+.hero-visual{display:flex;flex-wrap:wrap;gap:12px;max-width:300px;}
+.hv-card{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:1rem;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:120px;flex:1;}
+.hv-icon{font-size:28px;}
+.hv-label{font-size:12px;color:rgba(255,255,255,0.6);text-align:center;}
+
+.filter-bar{background:var(--white);border-bottom:1px solid var(--border);padding:1rem 2.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.filter-label{font-size:13px;color:var(--text2);font-weight:500;white-space:nowrap;}
+.cat-pills{display:flex;gap:8px;flex-wrap:wrap;flex:1;}
+.pill{padding:6px 16px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--text2);font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.pill.active,.pill:hover{background:var(--brown);color:var(--white);border-color:var(--brown);}
+.search-wrap{position:relative;min-width:200px;}
+.search-wrap input{background:var(--cream2);border:1px solid var(--border);color:var(--text);padding:8px 36px 8px 14px;border-radius:6px;font-family:'Tajawal',sans-serif;font-size:13px;width:100%;outline:none;}
+.search-wrap::before{content:'🔍';font-size:13px;position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;}
+
+main{padding:2rem 2.5rem;max-width:1200px;margin:0 auto;}
+.section-title{font-size:20px;font-weight:700;color:var(--brown);margin-bottom:0.25rem;}
+.section-sub{font-size:13px;color:var(--text3);margin-bottom:1.5rem;}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.25rem;margin-bottom:3rem;}
+.product-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all 0.25s;cursor:default;position:relative;}
+.product-card:hover{transform:translateY(-4px);border-color:rgba(92,61,30,0.3);}
+.product-badge{position:absolute;top:10px;right:10px;background:var(--orange);color:var(--white);font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px;letter-spacing:0.5px;}
+.product-badge.new{background:var(--brown2);}
+.product-img{background:var(--cream2);height:150px;display:flex;align-items:center;justify-content:center;font-size:56px;border-bottom:1px solid var(--border);}
+.product-body{padding:1rem;}
+.product-cat{font-size:10px;color:var(--orange);letter-spacing:1.5px;font-weight:700;margin-bottom:4px;text-transform:uppercase;}
+.product-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.3;}
+.product-desc{font-size:12px;color:var(--text3);line-height:1.5;margin-bottom:12px;}
+.product-footer{display:flex;align-items:center;justify-content:space-between;}
+.product-price{font-size:17px;font-weight:900;color:var(--brown);}
+.product-price span{font-size:12px;font-weight:400;color:var(--text3);}
+.add-btn{background:var(--brown);color:var(--white);border:none;width:32px;height:32px;border-radius:6px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;font-family:'Tajawal',sans-serif;line-height:1;}
+.add-btn:hover{background:var(--orange);}
+
+.features{background:var(--brown);padding:3rem 2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;}
+.feature{text-align:center;}
+.feature-icon{font-size:32px;margin-bottom:0.75rem;}
+.feature-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.feature-desc{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;}
+
+footer{background:var(--cream2);border-top:1px solid var(--border);padding:1.5rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-copy{font-size:12px;color:var(--text3);}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{font-size:12px;color:var(--text3);text-decoration:none;}
+.footer-links a:hover{color:var(--orange);}
+
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--brown);color:var(--white);padding:12px 24px;border-radius:8px;font-size:14px;transition:transform 0.3s;z-index:9999;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* CART DRAWER */
+.cart-overlay{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.45);
+  z-index:1000;
+}
+.cart-overlay.open{display:block;}
+.cart-drawer{
+  position:fixed;
+  left:0;top:0;bottom:0;
+  width:360px;max-width:95vw;
+  background:var(--white);
+  z-index:1001;
+  display:flex;flex-direction:column;
+  transform:translateX(-100%);
+  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.cart-drawer.open{transform:translateX(0);}
+.cart-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 1.5rem;
+  border-bottom:1px solid var(--border);
+  background:var(--brown);
+}
+.cart-header h3{color:var(--white);font-size:17px;font-weight:700;}
+.cart-close{background:transparent;border:none;color:rgba(255,255,255,0.7);font-size:22px;cursor:pointer;line-height:1;padding:4px 8px;border-radius:4px;}
+.cart-close:hover{color:var(--white);background:rgba(255,255,255,0.1);}
+.cart-items{flex:1;overflow-y:auto;padding:1rem 1.5rem;}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1rem;color:var(--text3);}
+.cart-empty-icon{font-size:48px;}
+.cart-empty p{font-size:14px;}
+.cart-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--border);
+}
+.cart-item-icon{font-size:28px;width:44px;height:44px;background:var(--cream2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:2px;}
+.cart-item-price{font-size:12px;color:var(--text3);}
+.cart-item-controls{display:flex;align-items:center;gap:8px;}
+.qty-btn{background:var(--cream2);border:1px solid var(--border);color:var(--text);width:26px;height:26px;border-radius:4px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;font-family:'Tajawal',sans-serif;}
+.qty-btn:hover{background:var(--cream3);}
+.qty-num{font-size:14px;font-weight:700;min-width:20px;text-align:center;}
+.remove-btn{background:transparent;border:none;color:#cc4444;cursor:pointer;font-size:16px;padding:2px 6px;border-radius:4px;}
+.remove-btn:hover{background:#fff0f0;}
+.cart-footer{
+  padding:1.25rem 1.5rem;
+  border-top:1px solid var(--border);
+  background:var(--cream);
+}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+.cart-total-label{font-size:14px;color:var(--text2);}
+.cart-total-amount{font-size:22px;font-weight:900;color:var(--brown);}
+.wa-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:14px;
+  background:#25D366;color:var(--white);
+  border:none;border-radius:8px;
+  font-family:'Tajawal',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:background 0.2s;text-decoration:none;
+}
+.wa-btn:hover{background:#20ba5a;}
+.wa-icon{font-size:20px;}
+
+@media(max-width:640px){
+  nav{padding:0 1rem;}
+  .nav-links{display:none}
+  .hero{padding:2.5rem 1rem;}
+  .hero-visual{display:none;}
+  .filter-bar{padding:1rem;}
+  main{padding:1.5rem 1rem;}
+  .features{padding:2rem 1rem;}
+  footer{padding:1.5rem 1rem;flex-direction:column;text-align:center;}
+  .cart-drawer{width:100%;max-width:100%;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">و</div>
+    <div>
+      <div class="logo-name">ورق بلس</div>
+      <div class="logo-sub">Paper Plus Store</div>
+    </div>
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#products">المنتجات</a></li>
+      <li><a href="#features">خدماتنا</a></li>
+      <li><a href="#contact">تواصل</a></li>
+    </ul>
+    <button class="cart-btn" onclick="openCart()">
+      🛒 السلة
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <h3>🛒 سلة التسوق</h3>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-total-row">
+      <span class="cart-total-label">الإجمالي:</span>
+      <span class="cart-total-amount" id="cart-total">0 ر.س</span>
+    </div>
+    <a class="wa-btn" id="wa-order-btn" href="#" target="_blank">
+      <span class="wa-icon">📱</span>
+      اطلب عبر واتساب
+    </a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">متخصصون في المستلزمات الورقية</div>
+    <h1>كل ما يحتاجه<br><span>مطعمك وكافيهك</span><br>في مكان واحد</h1>
+    <p>أكواب، أطباق، صناديق، أكياس، مناديل — منتجات ورقية عالية الجودة بأسعار الجملة مع توصيل سريع لجميع المناطق.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-orange">تصفح المنتجات</a>
+      <a href="#contact" class="btn-outline">تواصل للجملة</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">+500</span><span class="hstat-l">عميل راضٍ</span></div>
+      <div class="hstat"><span class="hstat-n">+80</span><span class="hstat-l">منتج متنوع</span></div>
+      <div class="hstat"><span class="hstat-n">24h</span><span class="hstat-l">توصيل سريع</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hv-card"><div class="hv-icon">☕</div><div class="hv-label">أكواب قهوة</div></div>
+    <div class="hv-card"><div class="hv-icon">🥡</div><div class="hv-label">صناديق طعام</div></div>
+    <div class="hv-card"><div class="hv-icon">🧻</div><div class="hv-label">مناديل</div></div>
+    <div class="hv-card"><div class="hv-icon">🥤</div><div class="hv-label">أكواب بلاستيك</div></div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <span class="filter-label">التصنيف:</span>
+  <div class="cat-pills">
+    <button class="pill active" onclick="filterCat('all',this)">الكل</button>
+    <button class="pill" onclick="filterCat('cups',this)">أكواب</button>
+    <button class="pill" onclick="filterCat('boxes',this)">صناديق</button>
+    <button class="pill" onclick="filterCat('bags',this)">أكياس</button>
+    <button class="pill" onclick="filterCat('napkins',this)">مناديل وأطباق</button>
+    <button class="pill" onclick="filterCat('accessories',this)">إكسسوارات</button>
+  </div>
+  <div class="search-wrap">
+    <input type="text" placeholder="ابحث عن منتج..." oninput="searchProducts(this.value)">
+  </div>
+</div>
+
+<main id="products">
+  <div class="section-title">منتجاتنا</div>
+  <div class="section-sub">جميع منتجاتنا قابلة للطلب بالجملة — تواصل معنا للحصول على أفضل الأسعار</div>
+  <div class="products-grid" id="grid"></div>
+</main>
+
+<div class="features" id="features">
+  <div class="feature"><div class="feature-icon">🚚</div><div class="feature-title">توصيل سريع</div><div class="feature-desc">نوصل لجميع المناطق خلال 24-48 ساعة من تأكيد الطلب</div></div>
+  <div class="feature"><div class="feature-icon">📦</div><div class="feature-title">طلبات الجملة</div><div class="feature-desc">أسعار خاصة لطلبات الجملة والعقود السنوية مع المطاعم والكافيهات</div></div>
+  <div class="feature"><div class="feature-icon">🎨</div><div class="feature-title">طباعة خاصة</div><div class="feature-desc">نطبع شعار مطعمك أو كافيهك على الأكواب والأكياس والصناديق</div></div>
+  <div class="feature"><div class="feature-icon">✅</div><div class="feature-title">جودة مضمونة</div><div class="feature-desc">منتجات مطابقة للمعايير الصحية الغذائية المعتمدة</div></div>
+</div>
+
+<div style="background:var(--cream2);padding:3rem 2.5rem;" id="contact">
+  <div style="max-width:600px;margin:0 auto;text-align:center;">
+    <div class="section-title" style="text-align:center;margin-bottom:0.5rem;">تواصل معنا</div>
+    <div class="section-sub" style="text-align:center;margin-bottom:2rem;">للطلبات الكبيرة والاستفسارات والطباعة الخاصة</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;text-align:right;">
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.25rem;">
+        <div style="font-size:10px;letter-spacing:2px;color:var(--orange);margin-bottom:6px;font-weight:700;">واتساب</div>
+        <div style="font-size:15px;font-weight:700;color:var(--brown)" dir="ltr">0570170758</div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.25rem;">
+        <div style="font-size:10px;letter-spacing:2px;color:var(--orange);margin-bottom:6px;font-weight:700;">البريد</div>
+        <div style="font-size:14px;font-weight:700;color:var(--brown)">info@waraqplus.com</div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.25rem;">
+        <div style="font-size:10px;letter-spacing:2px;color:var(--orange);margin-bottom:6px;font-weight:700;">ساعات العمل</div>
+        <div style="font-size:14px;font-weight:700;color:var(--brown)">السبت – الخميس | 8ص–10م</div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.25rem;">
+        <div style="font-size:10px;letter-spacing:2px;color:var(--orange);margin-bottom:6px;font-weight:700;">التوصيل</div>
+        <div style="font-size:14px;font-weight:700;color:var(--brown)">جميع مناطق المملكة</div>
+      </div>
+    </div>
+    <a class="wa-btn" href="https://wa.me/966570170758" target="_blank" style="margin-top:1.5rem;display:flex;">
+      <span class="wa-icon">📱</span>
+      تواصل معنا على واتساب
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-copy">© 2025 ورق بلس — جميع الحقوق محفوظة</div>
+  <div class="footer-links">
+    <a href="#products">المنتجات</a>
+    <a href="#features">خدماتنا</a>
+    <a href="#contact">تواصل</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const WA_NUMBER = '966570170758';
+
+const products = [
+  {id:1,cat:'cups',name:'أكواب قهوة ورقية 8 أوز',desc:'مناسبة للقهوة والشاي — عبوة 50 كوب',price:18,unit:'علبة',icon:'☕',badge:'الأكثر مبيعاً'},
+  {id:2,cat:'cups',name:'أكواب قهوة ورقية 12 أوز',desc:'للأحجام الكبيرة — عبوة 50 كوب',price:22,unit:'علبة',icon:'☕',badge:''},
+  {id:3,cat:'cups',name:'أكواب باردة شفافة 16 أوز',desc:'للعصائر والمشروبات الباردة — 50 كوب',price:20,unit:'علبة',icon:'🥤',badge:''},
+  {id:4,cat:'cups',name:'أطباق ورقية بيضاء',desc:'أطباق مقوى للمأكولات — عبوة 100 طبق',price:25,unit:'علبة',icon:'🍽️',badge:'جديد',badgeType:'new'},
+  {id:5,cat:'boxes',name:'صندوق بيتزا 30 سم',desc:'كرتون مموج عالي الجودة — عبوة 25 صندوق',price:35,unit:'علبة',icon:'🍕',badge:''},
+  {id:6,cat:'boxes',name:'صندوق وجبة سعيدة',desc:'مناسب للوجبات الفردية — عبوة 50 صندوق',price:30,unit:'علبة',icon:'🥡',badge:'الأكثر مبيعاً'},
+  {id:7,cat:'boxes',name:'علبة برجر كرافت',desc:'كرتون كرافت بني — عبوة 50 علبة',price:28,unit:'علبة',icon:'🍔',badge:''},
+  {id:8,cat:'boxes',name:'علبة سلطة شفافة',desc:'بلاستيك شفاف مع غطاء — 50 علبة',price:32,unit:'علبة',icon:'🥗',badge:'جديد',badgeType:'new'},
+  {id:9,cat:'bags',name:'أكياس كرافت بني صغير',desc:'للتيك أواي والتوصيل — عبوة 100 كيس',price:22,unit:'علبة',icon:'🛍️',badge:''},
+  {id:10,cat:'bags',name:'أكياس كرافت كبير بمقبض',desc:'مقوى ومتين — عبوة 50 كيس',price:28,unit:'علبة',icon:'🛍️',badge:''},
+  {id:11,cat:'napkins',name:'مناديل ورقية بيضاء',desc:'ناعمة ومتينة — رزمة 500 منديل',price:15,unit:'رزمة',icon:'🧻',badge:''},
+  {id:12,cat:'napkins',name:'مناديل مطوية للمطاعم',desc:'جاهزة للوضع على الطاولة — 500 قطعة',price:18,unit:'رزمة',icon:'🧻',badge:''},
+  {id:13,cat:'accessories',name:'أغطية أكواب مسطحة',desc:'تتناسب مع أكواب 8-12 أوز — 50 غطاء',price:12,unit:'علبة',icon:'🔵',badge:''},
+  {id:14,cat:'accessories',name:'أكواب ورقية للماء 4 أوز',desc:'للمياه والعصائر الصغيرة — 100 كوب',price:14,unit:'علبة',icon:'💧',badge:''},
+  {id:15,cat:'accessories',name:'أعواد تحريك خشبية',desc:'طبيعية وصحية — عبوة 500 عود',price:10,unit:'علبة',icon:'🥄',badge:''},
+  {id:16,cat:'accessories',name:'حاملات أكواب كرتون',desc:'لحمل 4 أكواب بسهولة — عبوة 50 حامل',price:20,unit:'علبة',icon:'📦',badge:'جديد',badgeType:'new'},
+];
+
+let cart = [];
+let currentCat = 'all';
+let searchQ = '';
+
+function renderGrid(){
+  const grid = document.getElementById('grid');
+  let filtered = products.filter(p => {
+    const catOk = currentCat === 'all' || p.cat === currentCat;
+    const searchOk = !searchQ || p.name.includes(searchQ) || p.desc.includes(searchQ);
+    return catOk && searchOk;
+  });
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card">
+      ${p.badge ? `<div class="product-badge ${p.badgeType||''}">${p.badge}</div>` : ''}
+      <div class="product-img">${p.icon}</div>
+      <div class="product-body">
+        <div class="product-cat">${catLabel(p.cat)}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-footer">
+          <div class="product-price">${p.price} ر.س <span>/ ${p.unit}</span></div>
+          <button class="add-btn" onclick="addToCart(${p.id})">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function catLabel(c){
+  return {cups:'أكواب',boxes:'صناديق',bags:'أكياس',napkins:'مناديل وأطباق',accessories:'إكسسوارات'}[c]||c;
+}
+
+function filterCat(cat, btn){
+  currentCat = cat;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid();
+}
+
+function searchProducts(q){
+  searchQ = q;
+  renderGrid();
+}
+
+function addToCart(id){
+  const p = products.find(x=>x.id===id);
+  const existing = cart.find(x=>x.id===id);
+  if(existing) existing.qty++;
+  else cart.push({...p, qty:1});
+  updateCartCount();
+  renderCartItems();
+  openCart();
+  showToast('✓ تمت الإضافة إلى السلة');
+}
+
+function updateCartCount(){
+  document.getElementById('cart-count').textContent = cart.reduce((s,x)=>s+x.qty,0);
+}
+
+function openCart(){
+  document.getElementById('cart-overlay').classList.add('open');
+  document.getElementById('cart-drawer').classList.add('open');
+  renderCartItems();
+}
+
+function closeCart(){
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('cart-drawer').classList.remove('open');
+}
+
+function renderCartItems(){
+  const container = document.getElementById('cart-items');
+  const footer = document.getElementById('cart-footer');
+  if(cart.length === 0){
+    container.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>السلة فارغة</p><p style="font-size:12px">أضف منتجات من المتجر</p></div>`;
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'block';
+  container.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-icon">${item.icon}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">${item.price} ر.س / ${item.unit}</div>
+      </div>
+      <div class="cart-item-controls">
+        <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+        <span class="qty-num">${item.qty}</span>
+        <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+        <button class="remove-btn" onclick="removeItem(${item.id})">🗑</button>
+      </div>
+    </div>
+  `).join('');
+  const total = cart.reduce((s,x)=>s+x.price*x.qty, 0);
+  document.getElementById('cart-total').textContent = total + ' ر.س';
+  const msg = buildWAMessage();
+  document.getElementById('wa-order-btn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+
+function changeQty(id, delta){
+  const item = cart.find(x=>x.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0) cart = cart.filter(x=>x.id!==id);
+  updateCartCount();
+  renderCartItems();
+}
+
+function removeItem(id){
+  cart = cart.filter(x=>x.id!==id);
+  updateCartCount();
+  renderCartItems();
+}
+
+function buildWAMessage(){
+  let msg = 'مرحباً، أريد طلب المنتجات التالية:\n\n';
+  cart.forEach(item => {
+    msg += `• ${item.name} × ${item.qty} = ${item.price * item.qty} ر.س\n`;
+  });
+  const total = cart.reduce((s,x)=>s+x.price*x.qty,0);
+  msg += `\nالإجمالي: ${total} ر.س`;
+  return msg;
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+renderGrid();
+</script>
+</body>
+</html>
